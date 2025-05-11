@@ -76,7 +76,6 @@ def odefun_blockcentered(t,DV,pars,n,BC_T,BC_B,dz,psi_n):
 
 @jit(nopython=True)
 def odefuncall(t,DV,pars,n,BC_T,BC_B,dz,psi_n):
-
     # In this function, we use a block centered grid approch, where the finite difference
     # solution is defined in terms of differences in fluxes. 
 

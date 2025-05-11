@@ -1,12 +1,12 @@
 function HorizontalInfiltrationModel
 %Set color to previous release color order
-co = [0 0 1;    
-    0 0.5 0;
-    1 0 0;
-    0 0.75 0.75;
-    0.75 0 0.75;
-    0.75 0.75 0;
-    0.25 0.25 0.25];
+co = [0 0 1;
+  0 0.5 0;
+  1 0 0;
+  0 0.75 0.75;
+  0.75 0 0.75;
+  0.75 0.75 0;
+  0.25 0.25 0.25];
 set(groot,'defaultAxesColorOrder',co)
 
 SeI=0.01; %Initial effective saturation
@@ -30,7 +30,7 @@ eta=0.5;
 %Dimensionlise results
 m=1-1./n;
 for k=1:numel(m)
-    [phi(:,k),Se,sig2(k)]=ModelFun(SeI,Se0,m(k),eta);
+  [phi(:,k),Se,sig2(k)]=ModelFun(SeI,Se0,m(k),eta);
 end
 z=phi.*sqrt(Ks./alpha./(thS-thR));
 theta=(thS-thR).*Se+thR;
@@ -44,24 +44,24 @@ xMAX=[100 90 12 18 1.0];
 %figure(1)
 %clf
 for k=[1,3,5]%Choose which soil you want to look at
-    %Determine horizontal distance (cm)
-    xPLOT=[z(:,k).*sqrt(t); repmat(xMAX(k),1,5)];
-    thetaPLOT=[theta(:,k); thetaI(k)];
-    %subplot(3,2,k)
-    mat=[thetaPLOT xPLOT];
-    csvwrite([fname{k},'.csv'],mat);
-    %plot(xPLOT,thetaPLOT,'.-','linewidth',1,'markersize',5)
-    %hold on
-    [zMOL,thetaMOL]=MOLFun(t,xMAX(k),thR(k),thS(k),alpha(k),n(k),Ks(k),eta,SeI,Se0);
-    %plot(zMOL,thetaMOL,'g-o')
-    %xlabel('Distance (cm)')
-    %ylabel('Moisture content (-)')
-    %legend('10 min','20 min','30 min','40 min','50 min','MOL','location','southwest')
-    %title([SoilName{k} ' (S = ' num2str(S(k),4) ' cm day^1^/^2)'])
-    %set(gca,'xscale','log')
-    %xlim([1 xMAX(k)])
-    
-    %xlswrite('PsuedospectralData.xlsx',[thetaPLOT xPLOT],SoilName{k})
+  %Determine horizontal distance (cm)
+  xPLOT=[z(:,k).*sqrt(t); repmat(xMAX(k),1,5)];
+  thetaPLOT=[theta(:,k); thetaI(k)];
+  %subplot(3,2,k)
+  mat=[thetaPLOT xPLOT];
+  csvwrite([fname{k},'.csv'],mat);
+  %plot(xPLOT,thetaPLOT,'.-','linewidth',1,'markersize',5)
+  %hold on
+  [zMOL,thetaMOL]=MOLFun(t,xMAX(k),thR(k),thS(k),alpha(k),n(k),Ks(k),eta,SeI,Se0);
+  %plot(zMOL,thetaMOL,'g-o')
+  %xlabel('Distance (cm)')
+  %ylabel('Moisture content (-)')
+  %legend('10 min','20 min','30 min','40 min','50 min','MOL','location','southwest')
+  %title([SoilName{k} ' (S = ' num2str(S(k),4) ' cm day^1^/^2)'])
+  %set(gca,'xscale','log')
+  %xlim([1 xMAX(k)])
+  
+  %xlswrite('PsuedospectralData.xlsx',[thetaPLOT xPLOT],SoilName{k})
 end
 
 %**************************************************************************
@@ -156,14 +156,14 @@ OF=1; %Initialise objective function
 i=2:N-1; %Inner node index
 F=ones(N,1); %Initial guess
 while OF>1e-6 %Newton iteration
-    %Determine square of sorptivity
-    sig2=IntCoefs*[2*(th-thI).*Dbar./F];
-    Q=2*Dbar/sig2./F;
-    R=[E2(i,:)*F+I(i,:)*Q;F(N)-0;F(1)-1];
-    dR=[E2(i,:)+I(i,:)*diag(-Q./F);I(N,:);I(1,:)];
-    Fold=F; %Store previous iteration
-    F=max(eps,F-dR\R); %Update F and ensure > 0
-    OF=max(abs(F-Fold)); %Define objective function
+  %Determine square of sorptivity
+  sig2=IntCoefs*[2*(th-thI).*Dbar./F];
+  Q=2*Dbar/sig2./F;
+  R=[E2(i,:)*F+I(i,:)*Q;F(N)-0;F(1)-1];
+  dR=[E2(i,:)+I(i,:)*diag(-Q./F);I(N,:);I(1,:)];
+  Fold=F; %Store previous iteration
+  F=max(eps,F-dR\R); %Update F and ensure > 0
+  OF=max(abs(F-Fold)); %Define objective function
 end
 %Determine phi for each theta value
 phi=sqrt(sig2)*E1*F;
@@ -224,9 +224,9 @@ Z(L) = zeros(N,1);                      % with zeros on the diagonal.
 D = eye(N);                          % D contains diff. matrices.
 
 for ell = 1:M
-    D = ell*Z.*(C.*repmat(diag(D),1,N) - D); % Off-diagonals
-    D(L) = -sum(D');                            % Correct main diagonal of D
-    DM(:,:,ell) = D;                                   % Store current D in DM
+  D = ell*Z.*(C.*repmat(diag(D),1,N) - D); % Off-diagonals
+  D(L) = -sum(D');                            % Correct main diagonal of D
+  DM(:,:,ell) = D;                                   % Store current D in DM
 end
 
 %**************************************************************************

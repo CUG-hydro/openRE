@@ -82,7 +82,6 @@ def odefun_blockcentered(t,DV,pars,n,BC_T,BC_B,dz,psi_n):
 
 @jit(nopython=True)
 def odefuncall(t,DV,pars,n,BC_T,BC_B,dz,psi_n):
-
     # In this function, we use a block centered grid approch, where the finite difference
     # solution is defined in terms of differences in fluxes. 
 
@@ -135,7 +134,7 @@ def run_RE(dt,t,dz,zN,n,psi0,BC_T,BC_B,parsIN):
 
     r = ode(odefun_blockcentered)
     r.set_integrator('vode',method='BDF',uband=1,lband=1)
-    
+
     tic=time.time()
     for i,ti in enumerate(t[:-1]):
         r.set_initial_value(DV[i,:], 0)
